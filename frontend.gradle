@@ -1,0 +1,18 @@
+node {
+    nodeProjectDir = file("./frontend")
+}
+
+task buildFrontendApp(type: NpmTask) {
+    args = ['run', 'build']
+}
+
+task copyFrontendApp(type: Copy) {
+    dependsOn('buildFrontendApp')
+    from('./frontend/build')
+    into("./src/main/resources/static")
+}
+
+buildFrontendApp.dependsOn npmInstall
+processResources.dependsOn copyFrontendApp
+copyFrontendApp.dependsOn buildFrontendApp
+build.dependsOn copyFrontendApp
