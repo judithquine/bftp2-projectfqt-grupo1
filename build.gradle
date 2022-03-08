@@ -24,6 +24,10 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+node {
+    download = true
+    version = "12.18.2"
+}
 
 
 apply from: 'frontend.gradle'
